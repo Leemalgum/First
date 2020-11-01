@@ -1,9 +1,14 @@
 package com.example.eatgo.application;
 
+import com.example.eatgo.domain.MenuItem;
+import com.example.eatgo.domain.MenuItemRepository;
 import com.example.eatgo.domain.Restaurant;
 import com.example.eatgo.domain.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Service
 public class RestaurantService {
@@ -11,13 +16,31 @@ public class RestaurantService {
     @Autowired
     RestaurantRepository restaurantRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    @Autowired
+    MenuItemRepository menuItemRepository;
+
+    public RestaurantService(RestaurantRepository restaurantRepository, MenuItemRepository menuItemRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.menuItemRepository = menuItemRepository;
     }
 
+    public List<Restaurant> getRestaurants() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        return restaurants;
+    }
+
+    @NotNull
     public Restaurant getRestaurant(Long id){
         Restaurant restaurant = restaurantRepository.findById(id);
+
+        List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
+        restaurant.setMenuItems(menuItems);
+
         return restaurant;
 
+    }
+
+    public Restaurant addRestaurant(Restaurant restaurant) {
+        return restaurantRepository.save(restaurant);
     }
 }

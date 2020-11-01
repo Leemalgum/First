@@ -1,23 +1,31 @@
 package com.example.eatgo.domain;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.hamcrest.CoreMatchers;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant {
 
-    private final Long id;
-    private final String name;
-    private final String address;
+    private Long id;
+    private String name;
+    private String address;
     private List<MenuItem> menuItems = new ArrayList<MenuItem>();
+
+    public Restaurant() {
+    }
+
+    public Restaurant(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 
     public Restaurant(Long id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Long getId() {
