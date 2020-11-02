@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(RestaurantController.class)
 
-public class RestaurantControllerTest {
+class RestaurantControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -89,7 +89,8 @@ public class RestaurantControllerTest {
 
         mvc.perform(post("/restaurants")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Beryong\", \"address\":\"Seoul\"}"))
+                .content("{\"categoryId\":1,\"name\":\"Beryong\"," +
+                        "\"address\":\"Busan\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location","/restaurants/1234"))
                 .andExpect(content().string("{}"));

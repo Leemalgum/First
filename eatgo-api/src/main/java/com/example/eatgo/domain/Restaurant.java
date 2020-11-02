@@ -1,14 +1,24 @@
 package com.example.eatgo.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Restaurant {
 
+    @Id
+    @GeneratedValue
     private Long id;
+
     private String name;
     private String address;
-    private List<MenuItem> menuItems = new ArrayList<MenuItem>();
+
+    @Transient
+    private List<MenuItem> menuItems = new ArrayList<MenuItem>(); //디비에 저장하는 부분이 아니고 JSON 사용을 위해 만든 리스트이기 때문에
 
     public Restaurant() {
     }
